@@ -144,11 +144,11 @@ public class MyGraph {
     }
 
 
-    public float capacity (Integer v, Integer w) {
+    public int capacity (Integer v, Integer w) {
         if (adjacency.get(v).containsKey(w)){
             return adjacency.get(v).get(w);
         }
-        else return Float.MAX_VALUE;
+        else return Integer.MAX_VALUE;
     }
 
     public void setCapacity (Integer v, Integer w, Integer c) {

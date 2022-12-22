@@ -1,11 +1,11 @@
 import java.util.*;
 
 public class FordFulkerson{
-    FlowNetwork g;
-    private HashMap<Integer, HashMap<Integer,Float>> flow; // current flow values
+    MyGraph g;
+    private HashMap<Integer, HashMap<Integer,Integer>> flow; // current flow values
     private LinkedList<Integer> P; //augmenting path
-    private Float b; //value of augmentation
-    public FordFulkerson(FlowNetwork g){
+    private Integer b; //value of augmentation
+    public FordFulkerson(MyGraph g){
 	this.g = g;
     }
 
@@ -14,11 +14,11 @@ public class FordFulkerson{
 
 	float val = 0.0f;
 	//initialize flow
-	flow = new HashMap<Integer, HashMap<Integer,Float>>();
+	flow = new HashMap<Integer, HashMap<Integer,Integer>>();
 	for (Integer v: g.getVertices()){
-	    flow.put(v,new HashMap<Integer,Float>());
+	    flow.put(v,new HashMap<Integer,Integer>());
 	    for (Integer u: g.getNeighbors(v)){
-		flow.get(v).put(u,0.0f);
+		flow.get(v).put(u,0);
 	    }
 	}
 	while (augment()){
@@ -52,7 +52,7 @@ public class FordFulkerson{
     private boolean augment(){//returns true if and only if augmenting path has been found
 	HashSet <Integer> visited = new HashSet<Integer>();
 	P = new LinkedList<Integer>();
-	b = Float.MAX_VALUE;
+	b = Integer.MAX_VALUE;
 	if (DFS(g.s,visited)){//residual graph has augmenting path
 	    //update flow and residual graph
 	    System.out.println("Found augmenting path, increasing flow by "+b);
@@ -62,9 +62,9 @@ public class FordFulkerson{
 		//if e ∈ E : f (e) ← f (e) + b
 		//network edge goes from prev to v
 		if (flow.get(prev).containsKey(v)){
-		    float fe = flow.get(prev).get(v);
+		    Integer fe = flow.get(prev).get(v);
 		    flow.get(prev).put(v,fe+b);
-		    Float c = g.capacity(prev,v);
+		    Integer c = g.capacity(prev,v);
 		    if (c<=b+0.01){
 			//System.out.println("removing edge from residual graph");
 			g.deleteEdge(prev,v);
@@ -81,18 +81,18 @@ public class FordFulkerson{
 		    }
 		}
 		else {//network edge goes from v to prev , so eR ∈ E : f (eR ) ← f (eR ) − b
-		    float fe = flow.get(v).get(prev);
+		    int fe = flow.get(v).get(prev);
 		    flow.get(v).put(prev,fe-b);
 		    //check if edge from v to prev is in the residual graph
 		    if (g.adjacent(v,prev)){
-			Float c = g.capacity(v,prev);
+			Integer c = g.capacity(v,prev);
 			g.setCapacity(prev,v,c+b);
 		    }
 		    else {
 			g.addEdge(v,prev,b);
 		    }
 		    //edge from prev to v must be in the residual graph
-		    Float c = g.capacity(prev,v);
+		    Integer c = g.capacity(prev,v);
 		    if (c<=b+0.00001){
 			g.deleteEdge(prev,v);
 		    }
