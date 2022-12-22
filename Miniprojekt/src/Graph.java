@@ -10,7 +10,8 @@ public interface Graph {
      * @param v Id of the new added vertex
      */
     public void addVertex (Integer v);
-    
+
+
     /**
      * Adds a new edge to the graph
      * @param v First Id of incident vertex
@@ -37,7 +38,9 @@ public interface Graph {
      * @return True if the ID belongs to the graph, False if not
      */
     public boolean contains (Integer v);
-    
+
+
+
     /**
      * Return the degree of a vertex in the graph
      * @param v Vertex ID 
