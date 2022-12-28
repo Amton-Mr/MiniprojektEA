@@ -23,7 +23,11 @@ public class FordFulkerson{
 	}
 	while (augment()){
 	    val = val+b;
-	    System.out.println("Current flow value "+val);
+		//TODO convert key of Lx in String
+
+	    System.out.println("Current flow value "+val + flow.get(Integer.MAX_VALUE) + g.getVertexName(1)+
+				g.getVertexName(70)+ g.getVertexName(40)+ g.getVertexName(104)+ g.getVertexName(30) + "\n" +
+				"Es werden " + Math.ceil(1000/val) + " resets gebraucht.");
 	}
 	/*
 	HashMap<Integer,Float> outflow = new HashMap<Integer,Float>();

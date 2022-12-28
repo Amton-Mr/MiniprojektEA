@@ -1,12 +1,12 @@
 import java.io.IOException;
-import java.util.HashMap;
 
 public class MainFile {
 
     public static void main(String[] args) throws IOException {
-        MyGraph G = new MyGraph("/home/antonthiel/Miniprojekt/Miniprojekt/Data/Roehrentransportsystem.csv");
+        MyGraph G = new MyGraph("/Users/samu/Documents/Roehrentransportsystem.csv");
+        System.out.println(G.adjacency);
         FordFulkerson algo = new FordFulkerson(G);
-
+        algo.computeMaxFlow();
     }
 
 }

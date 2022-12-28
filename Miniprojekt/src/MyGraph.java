@@ -25,31 +25,31 @@ public class MyGraph {
         vertexNames = new HashMap<Integer, String>();
         BufferedReader reader;
         int newID;
-        adjacency.put(s, new HashMap<>());
+        this.addVertex(s,"s");
         seenIds.put("s", this.s);
-        vertexNames.put(this.s , "s");
 
         try{
-
+            // nur für kopfzeile:
             reader = new BufferedReader(new FileReader(filename));
             String line = reader.readLine();
             String [] vertices = line.split(";");
 
             for (int i = 1; i < vertices.length-1; i++) {
-                vertexNames.put(i,vertices[i]);
+                this.addVertex(i,vertices[i]);
                 seenIds.put(vertices[i],i);
-                adjacency.put(i, new HashMap<>());
             }
-
+            // für anderen lines:
             line = reader.readLine();
+            int i = 1; //aktueller Knoten
             while(line != null){
-                int i = 1; //aktueller Knoten
+
                 String[] neighbors = line.split(";");
-                newID = i; //wenn Knoten Kapazität hat wird er gesplittet
+                newID = i; //für splitKnoten
 
                 String lastEntry = neighbors[neighbors.length-1];
 
-                if(lastEntry.contains("Kapazitaet")){
+                if(lastEntry.contains("Kapazitaet")){   //wenn Knoten Kapazität hat, dann wird er aufgesplittet in 2 min
+                                                        // einer Kante dazwischen mit dem Knotengewicht
                     System.out.println(lastEntry.substring(12));
                     int vertexCapacity = Integer.parseInt(lastEntry.substring(12));
                     newID = vertexNames.size()+1;
@@ -57,8 +57,8 @@ public class MyGraph {
                     this.addEdge(i,newID, vertexCapacity);
                 }
                 for(int j = 1; j < neighbors.length-1; j++){
-                    if(neighbors[j]!= "0" || !neighbors[j].isEmpty() || neighbors[j] != null){
-                        this.addEdge(newID,j, Integer.getInteger(neighbors[j]));
+                    if(!neighbors[j].equals("0")){
+                        this.addEdge(newID,j, Integer.parseInt(neighbors[j]));
                     }
                 }
                 line = reader.readLine();
