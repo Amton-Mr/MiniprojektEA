@@ -50,7 +50,7 @@ public class MyGraph {
 
                 if(lastEntry.contains("Kapazitaet")){   //wenn Knoten Kapazität hat, dann wird er aufgesplittet in 2 min
                                                         // einer Kante dazwischen mit dem Knotengewicht
-                    System.out.println(lastEntry.substring(12));
+                    //System.out.println(lastEntry.substring(12));
                     int vertexCapacity = Integer.parseInt(lastEntry.substring(12));
                     newID = vertexNames.size()+1;
                     this.addVertex(newID);
@@ -71,7 +71,7 @@ public class MyGraph {
                     this.addEdge(this.s,seenIds.get(vertex),1000);
                 }
             }
-            System.out.println(this.t);
+            //System.out.println(this.t);
         }
         catch(IOException e){
             e.printStackTrace();
