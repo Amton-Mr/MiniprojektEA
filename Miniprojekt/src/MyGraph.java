@@ -10,6 +10,7 @@ public class MyGraph {
     HashMap<Integer, HashMap<Integer,Integer>> adjacency; // sparse weighted adjacency matrix of the graph
     HashMap<Integer, String> vertexNames;
 
+    HashMap<Integer, String> storageNames;
     String[] indices;
 
     Integer s;
@@ -23,6 +24,7 @@ public class MyGraph {
         adjacency = new HashMap<Integer, HashMap<Integer,Integer>>();
         HashMap<String, Integer> seenIds = new HashMap<String, Integer>();	// only required during construction
         vertexNames = new HashMap<Integer, String>();
+        storageNames = new HashMap<Integer, String>();
         BufferedReader reader;
         int newID;
         this.addVertex(s,"s");
@@ -69,6 +71,7 @@ public class MyGraph {
                  ) {
                 if(vertex.contains("L")){
                     this.addEdge(this.s,seenIds.get(vertex),1000);
+                    storageNames.put(seenIds.get(vertex),vertex);
                 }
             }
             //System.out.println(this.t);
